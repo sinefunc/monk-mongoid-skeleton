@@ -14,21 +14,13 @@ require "sinatra/i18n"
 
 class Main < Monk::Glue
   set :app_file, __FILE__
-  use Rack::Session::Cookie
   
   register Sinatra::I18n
-
 end
 
-Dir[ "config/initializers/*.rb" ].each { |f| require f }
+Dir[ "config/initializers/*.rb" ].each { |file| require file }
+Dir[ root_path( "app/**/*.rb" ) ].each { |file| require file }
 
-# Load all application files.
-Dir[root_path("app/**/*.rb")].each do |file|
-  require file
-end
-
-if defined? Encoding
-  Encoding.default_external = Encoding::UTF_8
-end
+Encoding.default_external = Encoding::UTF_8 if defined? Encoding
 
 Main.run! if Main.run?
