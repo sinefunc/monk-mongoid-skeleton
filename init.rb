@@ -11,11 +11,14 @@ end
 require "monk/glue"
 require "ohm"
 require "haml"
-require "sass"
+require "sinatra/i18n"
 
 class Main < Monk::Glue
   set :app_file, __FILE__
   use Rack::Session::Cookie
+  
+  #set :locales, 'config/en.yml'
+  register Sinatra::I18n
 end
 
 # Connect to redis database.
