@@ -9,7 +9,6 @@ rescue LoadError
 end
 
 require "monk/glue"
-require "ohm"
 require "haml"
 require "sinatra/i18n"
 
@@ -17,12 +16,11 @@ class Main < Monk::Glue
   set :app_file, __FILE__
   use Rack::Session::Cookie
   
-  #set :locales, 'config/en.yml'
   register Sinatra::I18n
+
 end
 
-# Connect to redis database.
-Ohm.connect(settings(:redis))
+Dir[ "config/initializers/*.rb" ].each { |f| require f }
 
 # Load all application files.
 Dir[root_path("app/**/*.rb")].each do |file|
