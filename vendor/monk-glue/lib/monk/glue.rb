@@ -11,7 +11,12 @@ def root_path(*args)
   File.join(ROOT_DIR, *args)
 end
 
-require "sinatra/base"
+begin 
+  require "sinatra/base"
+rescue LoadError
+  $:.unshift( root_path('vendor', 'sinatra', 'lib') )
+  require "sinatra/base"
+end
 
 Monk = Module.new unless defined? Monk
 

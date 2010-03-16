@@ -1,3 +1,5 @@
+require 'mongo'
+
 ENV['MONGO_DB'] = "app_#{RACK_ENV}"
 
 begin
