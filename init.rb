@@ -10,12 +10,9 @@ end
 
 require "monk/glue"
 require "haml"
-require "sinatra/i18n"
 
 class Main < Monk::Glue
   set :app_file, __FILE__
-  
-  register Sinatra::I18n
 end
 
 Dir[ "config/initializers/*.rb" ].each { |file| require file }
